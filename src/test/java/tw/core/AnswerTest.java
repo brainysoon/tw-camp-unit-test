@@ -41,4 +41,14 @@ public class AnswerTest {
         assertEquals(1, record.getValue()[0]);
         assertEquals(0, record.getValue()[1]);
     }
+
+    @Test
+    public void should_only_increase_include_only_num_when_only_value_match() {
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        Record record = answer.check(Answer.createAnswer("5 1 7 8"));
+
+        assertEquals(0, record.getValue()[0]);
+        assertEquals(1, record.getValue()[1]);
+    }
 }
