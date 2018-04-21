@@ -9,6 +9,7 @@ import tw.core.model.Record;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -105,4 +106,18 @@ public class GameTest {
 
         assertEquals("continue", game.checkStatus());
     }
+
+    @Test
+    public void should_return_true_if_there_still_has_chance_to_try() {
+
+        Record record = new Record();
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        when(mockAnswer.check(answer)).thenReturn(record);
+
+        game.guess(answer);
+
+        assertTrue(game.checkCoutinue());
+    }
+
 }
