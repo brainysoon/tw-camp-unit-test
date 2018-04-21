@@ -93,4 +93,16 @@ public class GameTest {
 
         assertEquals("fail", game.checkStatus());
     }
+
+    @Test
+    public void should_return_continue_when_still_has_chance_to_try() {
+        Record record = new Record();
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        when(mockAnswer.check(answer)).thenReturn(record);
+
+        game.guess(answer);
+
+        assertEquals("continue", game.checkStatus());
+    }
 }
