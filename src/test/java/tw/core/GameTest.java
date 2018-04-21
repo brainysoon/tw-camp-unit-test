@@ -120,4 +120,18 @@ public class GameTest {
         assertTrue(game.checkCoutinue());
     }
 
+    @Test
+    public void should_return_false_if_there_not_has_any_chance() {
+        Record record = new Record();
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        when(mockAnswer.check(answer)).thenReturn(record);
+
+        int i = 10;
+        while (i-- > 0) {
+            game.guess(answer);
+        }
+
+        assertFalse(game.checkCoutinue());
+    }
 }
