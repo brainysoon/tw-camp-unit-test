@@ -23,4 +23,11 @@ public class AnswerTest {
 
         answer.validate();
     }
+
+    @Test
+    public void should_not_throw_any_exceptions_when_all_number_is_valid() throws Exception {
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        answer.validate();
+    }
 }
