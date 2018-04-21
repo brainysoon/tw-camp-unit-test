@@ -65,4 +65,11 @@ public class AnswerTest {
 
         assertEquals(-1, answer.getIndexOfNum("11"));
     }
+
+    @Test
+    public void should_return_the_numberList_item_separated_with_space() {
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        assertEquals("1 2 3 4", answer.toString());
+    }
 }
