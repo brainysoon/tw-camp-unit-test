@@ -6,7 +6,10 @@ import tw.core.generator.AnswerGenerator;
 import tw.core.model.GuessResult;
 import tw.core.model.Record;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -43,5 +46,20 @@ public class GameTest {
         GuessResult expectedGuessResult = new GuessResult("1A1B", answer);
         assertEquals(expectedGuessResult.getResult(), game.guess(answer).getResult());
         assertEquals(expectedGuessResult.getInputAnswer(), game.guess(answer).getInputAnswer());
+    }
+
+    @Test
+    public void should_add_the_result_to_the_result_history_list() {
+        Record record = new Record();
+        record.increaseCurrentNum();
+        record.increaseIncludeOnlyNum();
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        when(mockAnswer.check(answer)).thenReturn(record);
+
+        GuessResult guessResult = game.guess(answer);
+        List<GuessResult> guessResults = game.guessHistory();
+
+        assertTrue(guessResults.contains(guessResult));
     }
 }
