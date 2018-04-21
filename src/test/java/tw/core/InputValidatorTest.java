@@ -31,4 +31,10 @@ public class InputValidatorTest {
 
         assertFalse(inputValidator.validate("1 3 4"));
     }
+
+    @Test
+    public void should_return_false_if_num_contain_value_that_greater_than_10() {
+
+        assertFalse(inputValidator.validate("11 1 3 4"));
+    }
 }
