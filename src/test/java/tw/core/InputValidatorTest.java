@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.validator.InputValidator;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -23,5 +24,11 @@ public class InputValidatorTest {
     public void should_return_true_if_num_string_is_valid() {
 
         assertTrue(inputValidator.validate("1 2 3 4"));
+    }
+
+    @Test
+    public void should_return_false_if_num_length_is_not_4() {
+
+        assertFalse(inputValidator.validate("1 3 4"));
     }
 }
