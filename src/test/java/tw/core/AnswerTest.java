@@ -2,6 +2,7 @@ package tw.core;
 
 import org.junit.Test;
 import tw.core.exception.OutOfRangeAnswerException;
+import tw.core.model.Record;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,5 +30,15 @@ public class AnswerTest {
         Answer answer = Answer.createAnswer("1 2 3 4");
 
         answer.validate();
+    }
+
+    @Test
+    public void should_only_increase_current_num_when_number_value_and_position_is_correct() {
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        Record record = answer.check(Answer.createAnswer("1 5 7 8"));
+
+        assertEquals(1, record.getValue()[0]);
+        assertEquals(0, record.getValue()[1]);
     }
 }
