@@ -3,12 +3,15 @@ package tw.controllers;
 import org.junit.Before;
 import org.junit.Test;
 import tw.commands.InputCommand;
+import tw.core.Answer;
 import tw.core.Game;
+import tw.core.model.GuessResult;
 import tw.views.GameView;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
 
 /**
  * 在GameControllerTest文件中完成GameController中对应的单元测试
@@ -43,7 +46,25 @@ public class GameControllerTest {
         when(mockGame.checkStatus()).thenReturn("status");
 
         gameController.play(mockInputCommand);
+    }
 
-        verify(mockGameView).showGameStatus("status");
+    @Test
+    public void should_show_and_play_again_when_check_is_continue() throws Exception {
+        Answer answer = Answer.createAnswer("input");
+        GuessResult guessResult = new GuessResult("result", answer);
+        List<GuessResult> guessResults = Arrays.asList(guessResult, guessResult);
+
+        when(mockGame.checkCoutinue()).thenReturn(true).thenReturn(false);
+        when(mockInputCommand.input()).thenReturn(answer);
+        when(mockGame.guess(answer)).thenReturn(guessResult);
+        when(mockGame.guessHistory()).thenReturn(guessResults);
+        GameController spyGameController = spy(gameController);
+
+        spyGameController.play(mockInputCommand);
+
+        verify(mockGame).guess(answer);
+        verify(mockGameView).showGuessResult(guessResult);
+        verify(mockGameView).showGuessHistory(guessResults);
+        verify(spyGameController, times(2)).play(mockInputCommand);
     }
 }
