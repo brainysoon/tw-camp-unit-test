@@ -51,4 +51,11 @@ public class AnswerTest {
         assertEquals(0, record.getValue()[0]);
         assertEquals(1, record.getValue()[1]);
     }
+
+    @Test
+    public void should_return_the_index_of_the_number_when_the_number_exist() {
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        assertEquals(2, answer.getIndexOfNum("3"));
+    }
 }
