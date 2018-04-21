@@ -58,4 +58,11 @@ public class AnswerTest {
 
         assertEquals(2, answer.getIndexOfNum("3"));
     }
+
+    @Test
+    public void should_return_nagitive_one_when_the_number_is_not_exist() {
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        assertEquals(-1, answer.getIndexOfNum("11"));
+    }
 }
