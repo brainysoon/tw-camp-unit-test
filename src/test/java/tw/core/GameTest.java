@@ -62,4 +62,20 @@ public class GameTest {
 
         assertTrue(guessResults.contains(guessResult));
     }
+
+    @Test
+    public void should_return_success_when_the_game_is_done() {
+        Record record = new Record();
+        record.increaseCurrentNum();
+        record.increaseCurrentNum();
+        record.increaseCurrentNum();
+        record.increaseCurrentNum();
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        when(mockAnswer.check(answer)).thenReturn(record);
+
+        game.guess(answer);
+
+        assertEquals("success",game.checkStatus());
+    }
 }
