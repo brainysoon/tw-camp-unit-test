@@ -1,6 +1,7 @@
 package tw.core;
 
 import org.junit.Test;
+import tw.core.exception.OutOfRangeAnswerException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,5 +15,12 @@ public class AnswerTest {
 
         assertEquals("1 2 3 4", Answer.createAnswer("1 2 3 4").toString());
         assertEquals("11 2 33 4", Answer.createAnswer("11 2 33 4").toString());
+    }
+
+    @Test(expected = OutOfRangeAnswerException.class)
+    public void should_throw_an_OutOfRangeAnswerException_when_answer_contains_invalid_number() throws Exception {
+        Answer answer = Answer.createAnswer("11 2 33 44");
+
+        answer.validate();
     }
 }
