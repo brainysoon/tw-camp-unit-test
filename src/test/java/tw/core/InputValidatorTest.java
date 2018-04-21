@@ -37,4 +37,10 @@ public class InputValidatorTest {
 
         assertFalse(inputValidator.validate("11 1 3 4"));
     }
+
+    @Test(expected = NumberFormatException.class)
+    public void should_throw_an_number_format_exception_when_contain_non_number() {
+
+        inputValidator.validate("3 2 3 8*");
+    }
 }
