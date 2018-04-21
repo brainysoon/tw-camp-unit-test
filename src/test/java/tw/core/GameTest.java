@@ -76,6 +76,21 @@ public class GameTest {
 
         game.guess(answer);
 
-        assertEquals("success",game.checkStatus());
+        assertEquals("success", game.checkStatus());
+    }
+
+    @Test
+    public void should_return_fail_when_is_out_of_times() {
+        Record record = new Record();
+        Answer answer = Answer.createAnswer("1 2 3 4");
+
+        when(mockAnswer.check(answer)).thenReturn(record);
+
+        int i = 10;
+        while (i-- > 0) {
+            game.guess(answer);
+        }
+
+        assertEquals("fail", game.checkStatus());
     }
 }
