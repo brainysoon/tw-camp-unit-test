@@ -2,15 +2,14 @@ package tw.core;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.FieldSetter;
 import tw.core.generator.AnswerGenerator;
 import tw.core.model.GuessResult;
 import tw.core.model.Record;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -81,16 +80,15 @@ public class GameTest {
     }
 
     @Test
-    public void should_return_fail_when_is_out_of_times() {
+    public void should_return_fail_when_is_out_of_times() throws Exception {
         Record record = new Record();
         Answer answer = Answer.createAnswer("1 2 3 4");
+        List<GuessResult> mockGuessResult = mock(List.class);
 
         when(mockAnswer.check(answer)).thenReturn(record);
+        when(mockGuessResult.size()).thenReturn(10);
 
-        int i = 10;
-        while (i-- > 0) {
-            game.guess(answer);
-        }
+        FieldSetter.setField(game, game.getClass().getDeclaredField("guessResults"), mockGuessResult);
 
         assertEquals("fail", game.checkStatus());
     }
@@ -121,16 +119,15 @@ public class GameTest {
     }
 
     @Test
-    public void should_return_false_if_there_not_has_any_chance() {
+    public void should_return_false_if_there_not_has_any_chance() throws Exception {
         Record record = new Record();
         Answer answer = Answer.createAnswer("1 2 3 4");
+        List<GuessResult> mockGuessResult = mock(List.class);
 
         when(mockAnswer.check(answer)).thenReturn(record);
+        when(mockGuessResult.size()).thenReturn(10);
 
-        int i = 10;
-        while (i-- > 0) {
-            game.guess(answer);
-        }
+        FieldSetter.setField(game, game.getClass().getDeclaredField("guessResults"), mockGuessResult);
 
         assertFalse(game.checkCoutinue());
     }
